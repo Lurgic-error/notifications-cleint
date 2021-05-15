@@ -31,7 +31,7 @@
     methods: {
 
       async sendNotification() {
-        const res = await fetch("http://localhost:8000/notify-subs", {
+        const res = await fetch("http://localhost:5000/notify-subs", {
           method: "POST",
           body: JSON.stringify({
             title: this.title,

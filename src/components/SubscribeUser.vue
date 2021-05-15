@@ -22,7 +22,7 @@
         username: "",
         subscription: null,
         error: null,
-        publicVapidKey: "BB9sVtVD7d4T-Dyn76ZDl7Uw_c2FKaYQk2ehv4A7Njwa86wn7aNyJZC7s-YdhQ0PikT2kUxLLtYnMExw8glGacY",
+        publicVapidKey:"BDU4UurBAZNurGxFFJCK9GDBJ-z7boocpepbMMGD6jVnk5FlIKr4vKMhW8q9UVAQPJ9Z2iKuFPcgtz9fCfqcp7w",
       }
     },
 
@@ -52,14 +52,17 @@
               userVisibleOnly: true,
               applicationServerKey: this.urlBase64ToUint8Array(this.publicVapidKey),
             });
-            const res = await fetch("http://localhost:8000/create", {
+            const data = JSON.stringify(subscription)
+            console.log(`data`, data)
+            const res = await fetch("http://localhost:5000/create", {
               method: "POST",
-              body: JSON.stringify({subscription, username: this.username }),
+              body: data,
               headers: {
                 "content-type": "application/json",
               },
             });
         }
+        this.$router.push({ name:"home"})
         
       }
     }
