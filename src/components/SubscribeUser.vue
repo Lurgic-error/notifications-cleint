@@ -22,7 +22,7 @@
         username: "",
         subscription: null,
         error: null,
-        publicVapidKey:"BDU4UurBAZNurGxFFJCK9GDBJ-z7boocpepbMMGD6jVnk5FlIKr4vKMhW8q9UVAQPJ9Z2iKuFPcgtz9fCfqcp7w",
+        publicVapidKey: "BDU4UurBAZNurGxFFJCK9GDBJ-z7boocpepbMMGD6jVnk5FlIKr4vKMhW8q9UVAQPJ9Z2iKuFPcgtz9fCfqcp7w",
       }
     },
 
@@ -49,21 +49,26 @@
         if (permission == "granted") {
           const registration = await navigator.serviceWorker.ready
           const subscription = await registration.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: this.urlBase64ToUint8Array(this.publicVapidKey),
-            });
-            const data = JSON.stringify(subscription)
-            console.log(`data`, data)
-            const res = await fetch("http://localhost:5000/create", {
-              method: "POST",
-              body: data,
-              headers: {
-                "content-type": "application/json",
-              },
-            });
+            userVisibleOnly: true,
+            applicationServerKey: this.urlBase64ToUint8Array(this.publicVapidKey),
+          });
+          const data = JSON.stringify({
+            subscription,
+            username: this.username
+          })
+          console.log(`data`, data)
+          const res = await fetch("http://localhost:5000/create", {
+            method: "POST",
+            body: data,
+            headers: {
+              "content-type": "application/json",
+            },
+          });
         }
-        this.$router.push({ name:"home"})
-        
+        this.$router.push({
+          name: "home"
+        })
+
       }
     }
 
